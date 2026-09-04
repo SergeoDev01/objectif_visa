@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Objectif Visa — Votre visa, entre de bonnes mains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* Couleurs d'accent, 3 maximum */
+    --color-brand-blue: #129ba6;
+    --color-brand-blue-dark: #0f8189;
+    --color-coral-pulse: #fa3556;
+    --color-promo-gold: #ffc200;
+
+    /* Neutres */
+    --color-charcoal-ink: #16191c;
+    --color-pure-white: #ffffff;
+    --color-fog-white: #f9f9f9;
+    --color-tide-tint: #e6f4f6;
+    --color-ash-gray: #dadadd;
+    --color-mist-gray: #bfbfc0;
+    --color-slate: #5b6065;
+    --color-graphite: #393e41;
+    --color-deep-abyss: #1e2327;
+
+    /* Typo, Inter uniquement */
+    --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --text-caption: 12px;
+    --text-body-sm: 14px;
+    --text-body: 16px;
+    --text-subheading: 18px;
+    --text-heading-sm: 24px;
+    --text-heading: 32px;
+    --text-heading-lg: 40px;
+    --text-display: 60px;
+
+    /* Espacement, unité 4px */
+    --spacing-4: 4px; --spacing-8: 8px; --spacing-12: 12px; --spacing-16: 16px;
+    --spacing-24: 24px; --spacing-32: 32px; --spacing-48: 48px; --spacing-64: 64px;
+    --spacing-96: 96px;
+
+    /* Rayons */
+    --radius-buttons: 12px;
+    --radius-cards: 48px;
+    --radius-pills: 96px;
+    --radius-hero: 64px;
+
+    --page-max-width: 1200px;
+    --section-gap: 64px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-inter);
+    font-size: var(--text-body);
+    line-height: 1.75;
+    color: var(--color-graphite);
+    background: var(--color-pure-white);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: var(--page-max-width);
+    margin: 0 auto;
+    padding-left: var(--spacing-24);
+    padding-right: var(--spacing-24);
+    width: 100%;
+  }
+
+  /* ---- Section rhythm wrappers ---- */
+  .bg-white { background: var(--color-pure-white); }
+  .bg-fog { background: var(--color-fog-white); }
+  .bg-tide { background: var(--color-tide-tint); }
+  .bg-charcoal { background: var(--color-charcoal-ink); }
+  .bg-abyss { background: var(--color-deep-abyss); }
+
+  section { padding-top: var(--spacing-96); padding-bottom: var(--spacing-96); }
+
+  /* ---- Typography helpers ---- */
+  .eyebrow {
+    color: var(--color-brand-blue);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: var(--text-caption);
+    font-weight: 600;
+    margin-bottom: var(--spacing-12);
+  }
+  h1, h2, h3 { font-weight: 700; line-height: 1.2; color: var(--color-charcoal-ink); }
+  h2 { font-size: var(--text-heading); }
+  h3 { font-size: var(--text-heading-sm); }
+
+  .section-head { text-align: center; max-width: 720px; margin: 0 auto var(--spacing-64); }
+  .section-head p { color: var(--color-slate); margin-top: var(--spacing-16); }
+
+  /* ---- Buttons & links ---- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-inter);
+    font-size: var(--text-body);
+    font-weight: 600;
+    border-radius: var(--radius-buttons);
+    padding: var(--spacing-16) var(--spacing-32);
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color .2s ease, color .2s ease;
+  }
+  .btn-coral { background: var(--color-coral-pulse); color: var(--color-pure-white); }
+  .btn-coral:hover { background: #e62e4d; }
+  .btn-dark-outline {
+    background: transparent;
+    color: var(--color-pure-white);
+    border: 1px solid var(--color-mist-gray);
+  }
+  .btn-dark-outline:hover { border-color: var(--color-pure-white); }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--color-brand-blue);
+  }
+  .link-arrow svg { transition: transform .2s ease; }
+  .link-arrow:hover svg { transform: translateX(4px); }
+  .link-arrow.on-dark { color: var(--color-pure-white); }
+
+  /* ---- Check list ---- */
+  .check-list { list-style: none; display: grid; gap: var(--spacing-16); }
+  .check-list.two-col { grid-template-columns: 1fr 1fr; }
+  .check-list li { display: flex; align-items: center; gap: var(--spacing-12); }
+  .check-list li svg { flex-shrink: 0; }
+
+  /* ===================================================== */
+  /* Section 1 — Top banner                                */
+  /* ===================================================== */
+  .topbar {
+    background: var(--color-brand-blue);
+    color: var(--color-pure-white);
+    font-size: var(--text-body-sm);
+  }
+  .topbar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 44px;
+    gap: var(--spacing-16);
+  }
+  .topbar .contact { display: flex; align-items: center; gap: var(--spacing-8); }
+  .topbar .social { display: flex; align-items: center; gap: var(--spacing-16); }
+  .topbar .social a { color: var(--color-pure-white); display: inline-flex; }
+  .topbar svg { fill: currentColor; }
+
+  /* ===================================================== */
+  /* Section 2 — Navigation                                */
+  /* ===================================================== */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--color-pure-white);
+    height: 64px;
+    border-bottom: 1px solid var(--color-ash-gray);
+  }
+  .nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    font-weight: 700;
+    font-size: var(--text-heading-sm);
+    color: var(--color-charcoal-ink);
+    text-decoration: none;
+  }
+  .logo .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--color-brand-blue); }
+  .nav-links { display: flex; align-items: center; gap: var(--spacing-32); list-style: none; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--color-graphite);
+    font-size: var(--text-body-sm);
+    font-weight: 500;
+    padding-bottom: var(--spacing-4);
+  }
+  .nav-links a.active { color: var(--color-charcoal-ink); border-bottom: 2px solid var(--color-brand-blue); }
+  .nav-links a:hover { color: var(--color-brand-blue); }
+
+  /* ===================================================== */
+  /* Section 3 — Hero                                      */
+  /* ===================================================== */
+  .hero-card {
+    background: var(--color-charcoal-ink);
+    border-radius: var(--radius-hero);
+    padding: var(--spacing-64);
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    gap: var(--spacing-64);
+    align-items: center;
+  }
+  .hero-card h1 {
+    color: var(--color-pure-white);
+    font-size: var(--text-display);
+    line-height: 1.07;
+    letter-spacing: -1.5px;
+    margin-bottom: var(--spacing-24);
+  }
+  .hero-card .sub {
+    color: var(--color-mist-gray);
+    font-size: var(--text-subheading);
+    line-height: 1.67;
+    margin-bottom: var(--spacing-32);
+    max-width: 30ch;
+  }
+  .hero-card .check-list { margin-bottom: var(--spacing-32); color: var(--color-pure-white); }
+  .hero-actions { display: flex; align-items: center; gap: var(--spacing-24); flex-wrap: wrap; }
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--radius-cards);
+    aspect-ratio: 4 / 5;
+    display: block;
+    background: var(--color-graphite);
+  }
+
+  /* ===================================================== */
+  /* Section 4 — Réassurance 3 piliers                     */
+  /* ===================================================== */
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-32); }
+  .card {
+    background: var(--color-pure-white);
+    border-radius: var(--radius-cards);
+    padding: var(--spacing-32);
+  }
+  .card .icon {
+    width: 56px; height: 56px;
+    border-radius: var(--radius-buttons);
+    background: var(--color-tide-tint);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: var(--spacing-24);
+  }
+  .card h3 { margin-bottom: var(--spacing-12); }
+  .card p { color: var(--color-slate); font-size: var(--text-body); }
+
+  /* ===================================================== */
+  /* Section 5 — À propos                                  */
+  /* ===================================================== */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-64); align-items: center; }
+  .about-grid h2 { margin-bottom: var(--spacing-24); max-width: 16ch; }
+  .about-grid p.lead { color: var(--color-slate); margin-bottom: var(--spacing-32); }
+  .about-media { position: relative; }
+  .about-media img {
+    width: 100%;
+    border-radius: var(--radius-cards);
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    background: var(--color-graphite);
+  }
+  .about-badge {
+    position: absolute;
+    right: var(--spacing-24);
+    bottom: calc(-1 * var(--spacing-32));
+    background: var(--color-coral-pulse);
+    color: var(--color-pure-white);
+    border-radius: var(--radius-cards);
+    padding: var(--spacing-24) var(--spacing-32);
+    text-align: center;
+    line-height: 1.2;
+  }
+  .about-badge .num { font-size: var(--text-heading-lg); font-weight: 700; display: block; }
+  .about-badge .label { font-size: var(--text-body-sm); }
+
+  /* ===================================================== */
+  /* Section 6 — Services                                  */
+  /* ===================================================== */
+  .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-32); }
+  .service-card .icon {
+    width: 56px; height: 56px;
+    border-radius: var(--radius-buttons);
+    background: var(--color-tide-tint);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: var(--spacing-24);
+  }
+  .service-card h3 { margin-bottom: var(--spacing-8); }
+  .service-card p { color: var(--color-slate); margin-bottom: var(--spacing-16); }
+
+  /* ===================================================== */
+  /* Section 7 — Processus 3 étapes                        */
+  /* ===================================================== */
+  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-48); }
+  .step .num {
+    font-size: var(--text-heading-lg);
+    font-weight: 700;
+    color: var(--color-coral-pulse);
+    line-height: 1;
+    margin-bottom: var(--spacing-16);
+  }
+  .step h3 { margin-bottom: var(--spacing-12); }
+  .step p { color: var(--color-slate); }
+
+  /* ===================================================== */
+  /* Section 8 — Blog                                      */
+  /* ===================================================== */
+  .blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--spacing-32); }
+  .blog-card { background: var(--color-pure-white); border-radius: var(--radius-cards); overflow: hidden; }
+  .blog-card img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    display: block;
+    background: var(--color-graphite);
+    filter: saturate(0.85) contrast(1.02);
+  }
+  .blog-body { padding: var(--spacing-32); }
+  .blog-body h3 { margin-bottom: var(--spacing-8); }
+  .blog-body p { color: var(--color-slate); margin-bottom: var(--spacing-16); }
+
+  /* ===================================================== */
+  /* Section 9 — Témoignages                               */
+  /* ===================================================== */
+  .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-64); align-items: center; }
+  .testi-grid h2 { color: var(--color-pure-white); margin-bottom: var(--spacing-24); max-width: 14ch; }
+  .testi-grid p.lead { color: var(--color-mist-gray); margin-bottom: var(--spacing-32); }
+  .testi-videos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--spacing-24); }
+  .video-thumb {
+    position: relative;
+    border-radius: var(--radius-cards);
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    background: var(--color-graphite);
+  }
+  .video-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.8); }
+  .play-btn {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 64px; height: 64px;
+    background: var(--color-coral-pulse);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  /* ===================================================== */
+  /* Section 10 — CTA final                                */
+  /* ===================================================== */
+  .cta-final {
+    position: relative;
+    border-radius: var(--radius-hero);
+    overflow: hidden;
+    padding: var(--spacing-64);
+    text-align: center;
+  }
+  .cta-final .bg-img {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    background-color: var(--color-graphite);
+  }
+  .cta-final .overlay {
+    position: absolute; inset: 0;
+    background: rgba(22, 25, 28, 0.78);
+  }
+  .cta-final .inner { position: relative; max-width: 640px; margin: 0 auto; }
+  .cta-final h2 { color: var(--color-pure-white); margin-bottom: var(--spacing-16); }
+  .cta-final p { color: var(--color-mist-gray); margin-bottom: var(--spacing-32); }
+
+  /* ===================================================== */
+  /* Section 11 — Newsletter + Footer                      */
+  /* ===================================================== */
+  .dark-block { background: var(--color-charcoal-ink); color: var(--color-pure-white); }
+  .newsletter { padding-top: var(--spacing-96); padding-bottom: var(--spacing-64); text-align: center; max-width: 560px; margin: 0 auto; }
+  .newsletter h2 { color: var(--color-pure-white); margin-bottom: var(--spacing-12); }
+  .newsletter p { color: var(--color-mist-gray); margin-bottom: var(--spacing-32); }
+  .news-form { display: flex; gap: var(--spacing-12); justify-content: center; flex-wrap: wrap; }
+  .news-form input {
+    flex: 1;
+    min-width: 240px;
+    padding: var(--spacing-16) var(--spacing-24);
+    border-radius: var(--radius-buttons);
+    border: 1px solid var(--color-graphite);
+    background: var(--color-deep-abyss);
+    color: var(--color-pure-white);
+    font-family: var(--font-inter);
+    font-size: var(--text-body);
+  }
+  .news-form input::placeholder { color: var(--color-mist-gray); }
+
+  .footer { padding-top: var(--spacing-64); padding-bottom: var(--spacing-48); border-top: 1px solid var(--color-graphite); }
+  .footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--spacing-48); }
+  .footer .logo { color: var(--color-pure-white); margin-bottom: var(--spacing-16); }
+  .footer h4 { color: var(--color-pure-white); font-size: var(--text-body-sm); text-transform: uppercase; letter-spacing: 1px; margin-bottom: var(--spacing-16); }
+  .footer p, .footer li { color: var(--color-mist-gray); font-size: var(--text-body-sm); line-height: 1.8; }
+  .footer ul { list-style: none; }
+  .footer ul a { color: var(--color-mist-gray); text-decoration: none; }
+  .footer ul a:hover { color: var(--color-brand-blue); }
+  .footer-bottom { text-align: center; color: var(--color-slate); font-size: var(--text-caption); padding-top: var(--spacing-32); }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 900px) {
+    .hero-card, .about-grid, .testi-grid { grid-template-columns: 1fr; }
+    .pillars, .services-grid, .steps, .blog-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .testi-videos { grid-template-columns: 1fr 1fr; }
+    .hero-card h1 { font-size: var(--text-heading-lg); }
+    .check-list.two-col { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ Section 1 — Bandeau du haut ============ -->
+  <div class="topbar">
+    <div class="container">
+        <div class="contact">
+          <span>Adresse, Angoulême, France</span>
+          <span aria-hidden="true">·</span>
+          <span>+XX X XX XX XX XX</span>
+        </div>
+      <div class="social">
+        <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM.5 8h4V24h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.37-3.9-2.38 0-2.74 1.86-2.74 3.78V24h-4V8z"/></svg></a>
+        <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M24 12a12 12 0 1 0-13.88 11.85v-8.38H7v-3.47h3.12V9.41c0-3.08 1.83-4.78 4.64-4.78 1.34 0 2.75.24 2.75.24v3.02h-1.55c-1.53 0-2 0.95-2 1.92v2.31h3.4l-.54 3.47h-2.86v8.38A12 12 0 0 0 24 12z"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0 1.62c-3.15 0-3.5.01-4.74.07-1.14.05-1.76.24-2.17.4-.55.21-.94.47-1.35.88-.41.41-.67.8-.88 1.35-.16.41-.35 1.03-.4 2.17-.06 1.24-.07 1.6-.07 4.74s.01 3.5.07 4.74c.05 1.14.24 1.76.4 2.17.21.55.47.94.88 1.35.41.41.8.67 1.35.88.41.16 1.03.35 2.17.4 1.24.06 1.6.07 4.74.07s3.5-.01 4.74-.07c1.14-.05 1.76-.24 2.17-.4.55-.21.94-.47 1.35-.88.41-.41.67-.8.88-1.35.16-.41.35-1.03.4-2.17.06-1.24.07-1.6.07-4.74s-.01-3.5-.07-4.74c-.05-1.14-.24-1.76-.4-2.17a3.6 3.6 0 0 0-.88-1.35 3.6 3.6 0 0 0-1.35-.88c-.41-.16-1.03-.35-2.17-.4-1.24-.06-1.6-.07-4.74-.07zm0 2.76a5.46 5.46 0 1 0 0 10.92 5.46 5.46 0 0 0 0-10.92zm0 9a3.54 3.54 0 1 1 0-7.08 3.54 3.54 0 0 1 0 7.08zm5.68-9.22a1.28 1.28 0 1 1-2.56 0 1.28 1.28 0 0 1 2.56 0z"/></svg></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ Section 2 — Navigation ============ -->
+  <nav class="nav">
+    <div class="container">
+      <a href="index.html" class="logo"><span class="dot"></span>Objectif Visa</a>
+      <ul class="nav-links">
+        <li><a href="index.html" class="active">Accueil</a></li>
+        <li><a href="a-propos.html">À propos de nous</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="temoignages.html">Témoignages</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+      <a href="contact.html" class="btn btn-coral">Prendre Rendez Vous</a>
+    </div>
+  </nav>
+
+  <!-- ============ Section 3 — Hero ============ -->
+  <section class="bg-white">
+    <div class="container">
+      <div class="hero-card">
+        <div class="hero-text">
+          <h1>Votre visa, entre de bonnes mains</h1>
+          <p class="sub">Des juristes experts vous accompagnent à chaque étape de votre projet d'immigration, de la première demande jusqu'à l'obtention de votre titre.</p>
+          <ul class="check-list">
+            <li>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Équipe professionnelle
+            </li>
+            <li>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Assistance juridique
+            </li>
+            <li>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+              Support client 6 jours sur 7
+            </li>
+          </ul>
+          <div class="hero-actions">
+            <a href="contact.html" class="btn btn-coral">Prendre Rendez Vous</a>
+            <a href="services.html" class="link-arrow on-dark">Découvrir nos services
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="hero-media">
+          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Une personne tenant un passeport et un document de voyage, expression confiante" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 4 — Réassurance ============ -->
+  <section class="bg-tide">
+    <div class="container">
+      <div class="pillars">
+        <div class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Fiabilité</h3>
+          <p>Des dossiers solides, préparés selon les règles en vigueur dans chaque pays de destination.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <h3>Disponibilité</h3>
+          <p>Une équipe à votre écoute, disponible pour répondre à vos questions tout au long de votre démarche.</p>
+        </div>
+        <div class="card">
+          <div class="icon">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <h3>Transparence</h3>
+          <p>Des informations claires, à jour, sans fausse promesse sur vos chances d'obtenir votre visa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 5 — À propos ============ -->
+  <section class="bg-white">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <p class="eyebrow">ObjectifVisa</p>
+          <h2>Votre projet d'immigration mérite un accompagnement sérieux</h2>
+          <p class="lead">Depuis 2015, nous aidons étudiants, professionnels et familles à obtenir leur visa et à s'installer sereinement à l'étranger.</p>
+          <ul class="check-list two-col">
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Équipe professionnelle</li>
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Assistance juridique</li>
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Avis clients à 100 pour cent</li>
+            <li><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>Support client 6 jours sur 7</li>
+          </ul>
+        </div>
+        <div class="about-media">
+          <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=900&q=80" alt="Une équipe en entretien consultant des documents de voyage" loading="lazy" />
+          <div class="about-badge">
+            <span class="num">8 ans</span>
+            <span class="label">d'expérience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 6 — Services ============ -->
+  <section class="bg-fog">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">Notre expertise</p>
+        <h2>Nos services de visas et d'immigration</h2>
+        <p>Un accompagnement complet pour chaque type de projet, de la première demande jusqu'à l'installation.</p>
+      </div>
+      <div class="services-grid">
+        <div class="card service-card">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/></svg></div>
+          <h3>Visas de Travail</h3>
+          <p>Concrétisez votre projet professionnel à l'international.</p>
+          <a href="#" class="link-arrow">Découvrir<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="card service-card">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+          <h3>Visas Étudiants</h3>
+          <p>Étudiez à l'étranger et valorisez votre profil.</p>
+          <a href="#" class="link-arrow">Découvrir<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="card service-card">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 11a4 4 0 0 0-8 0"/><circle cx="12" cy="7" r="3"/><path d="M3 21v-1a6 6 0 0 1 12 0v1"/><circle cx="18" cy="9" r="2.5"/><path d="M16 21v-1a4 4 0 0 1 6-3.5"/></svg></div>
+          <h3>Regroupement Familial</h3>
+          <p>Retrouvez votre famille en toute légalité.</p>
+          <a href="#" class="link-arrow">Découvrir<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="card service-card">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13l2 2 4-4"/></svg></div>
+          <h3>Régularisation de Séjour</h3>
+          <p>Sécurisez votre situation administrative.</p>
+          <a href="#" class="link-arrow">Découvrir<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="card service-card">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12a10 10 0 1 0 20 0 10 10 0 0 0-20 0z"/><path d="M2 12h20M12 2c3 3 3 17 0 20M12 2c-3 3-3 17 0 20"/></svg></div>
+          <h3>Visas de Tourisme et Affaires</h3>
+          <p>Voyagez ou entreprenez à l'étranger sans complications.</p>
+          <a href="#" class="link-arrow">Découvrir<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+        <div class="card service-card">
+          <div class="icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+          <h3>Autres Prestations</h3>
+          <p>Un accompagnement sur mesure pour tous vos projets à l'étranger.</p>
+          <a href="#" class="link-arrow">Découvrir<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 7 — Processus ============ -->
+  <section class="bg-tide">
+    <div class="container">
+      <div class="section-head">
+        <h2>Le processus ObjectifVisa</h2>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <div class="num">1.</div>
+          <h3>Vous nous exposez votre projet</h3>
+          <p>Études, travail, regroupement familial ou régularisation, dites nous ce que vous souhaitez accomplir.</p>
+        </div>
+        <div class="step">
+          <div class="num">2.</div>
+          <h3>Nous préparons votre dossier</h3>
+          <p>Nous auditons votre situation et réunissons les documents requis par la loi.</p>
+        </div>
+        <div class="step">
+          <div class="num">3.</div>
+          <h3>Vous partez vers votre nouvelle vie</h3>
+          <p>Votre dossier est déposé et suivi jusqu'à l'obtention de votre visa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 8 — Blog ============ -->
+  <section class="bg-white">
+    <div class="container">
+      <div class="section-head">
+        <h2>Nos derniers conseils</h2>
+        <p>Des ressources claires pour préparer votre projet à l'étranger.</p>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=600&q=80" alt="Préparation d'un voyage professionnel" loading="lazy" />
+          <div class="blog-body">
+            <h3>Visa Travail pour la France</h3>
+            <p>Ce qu'il faut savoir avant de vous lancer.</p>
+            <a href="#" class="link-arrow">Lire l'article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=600&q=80" alt="Réunion d'affaires et choix de visa" loading="lazy" />
+          <div class="blog-body">
+            <h3>Visa d'Affaires, lequel choisir</h3>
+            <p>Le bon visa selon votre projet professionnel.</p>
+            <a href="#" class="link-arrow">Lire l'article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+        <div class="blog-card">
+          <img src="https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=600&q=80" alt="Carte du monde et destinations de visas" loading="lazy" />
+          <div class="blog-body">
+            <h3>Principaux pays offrant des visas</h3>
+            <p>Un tour d'horizon des destinations possibles.</p>
+            <a href="#" class="link-arrow">Lire l'article<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 9 — Témoignages ============ -->
+  <section class="bg-abyss">
+    <div class="container">
+      <div class="testi-grid">
+        <div class="testi-text">
+          <p class="eyebrow">Ils nous font confiance</p>
+          <h2>Des histoires vraies, des visas obtenus</h2>
+          <p class="lead">Découvrez le parcours de nos clients, de leur première demande jusqu'à leur installation.</p>
+          <a href="#" class="btn btn-dark-outline">Voir tous les témoignages</a>
+        </div>
+        <div class="testi-videos">
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=500&q=80" alt="Témoignage vidéo d'une cliente" loading="lazy" />
+            <span class="play-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+          <div class="video-thumb">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=500&q=80" alt="Témoignage vidéo d'un client" loading="lazy" />
+            <span class="play-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 10 — CTA final ============ -->
+  <section class="bg-abyss">
+    <div class="container">
+      <div class="cta-final">
+        <div class="bg-img" style="background-image:url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1200&q=80')"></div>
+        <div class="overlay"></div>
+        <div class="inner">
+          <h2>Prêt à démarrer votre projet</h2>
+          <p>Contactez notre équipe pour un accompagnement personnalisé, du premier échange jusqu'à l'obtention de votre visa.</p>
+          <a href="contact.html" class="btn btn-coral">Contactez-nous</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Section 11 — Newsletter + Footer ============ -->
+  <div class="dark-block">
+    <div class="container">
+      <div class="newsletter">
+        <h2>Restez informé</h2>
+        <p>Recevez nos conseils et actualités sur l'immigration directement par email.</p>
+        <form class="news-form" onsubmit="return false;">
+          <input type="email" placeholder="Votre adresse email" aria-label="Votre adresse email" />
+          <button type="submit" class="btn btn-coral">S'inscrire</button>
+        </form>
+      </div>
+      <div class="footer">
+        <div class="footer-grid">
+          <div>
+            <a href="index.html" class="logo"><span class="dot"></span>Objectif Visa</a>
+            <p>ObjectifVisa vous accompagne dans l'obtention de votre visa et la gestion de vos démarches d'immigration.</p>
+          </div>
+          <div>
+            <h4>Accès rapide</h4>
+            <ul>
+              <li><a href="index.html">Accueil</a></li>
+              <li><a href="a-propos.html">À propos</a></li>
+              <li><a href="services.html">Services</a></li>
+              <li><a href="temoignages.html">Témoignages</a></li>
+              <li><a href="contact.html">Contact</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Services</h4>
+            <ul>
+              <li><a href="visas-travail.html">Visas de Travail</a></li>
+              <li><a href="visas-etudiants.html">Visas Étudiants</a></li>
+              <li><a href="regroupement-familial.html">Regroupement Familial</a></li>
+              <li><a href="regularisation-sejour.html">Régularisation de Séjour</a></li>
+              <li><a href="autres-prestations.html">Autres Prestations</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4>Contact</h4>
+            <ul>
+            <li>Adresse, Angoulême, France</li>
+            <li>+XX X XX XX XX XX</li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">Copyright 2026 ObjectifVisa.fr. Tous droits réservés.</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
