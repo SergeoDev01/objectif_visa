@@ -302,7 +302,7 @@ h3 {
 }
 
 .btn:hover .btn-label {
-  transform: translateY(-130%);
+  transform: translateY(-200%);
 }
 
 .btn .btn-text-swap {
@@ -2554,11 +2554,21 @@ h3 {
   }
 }
 
-.pillars > *,
-.services-grid > *,
-.testi-cards > *,
-.blog-grid > *,
-.bento-grid > * {
+/* JS actif uniquement : les grilles restent visibles sans JS (progressive enhancement) */
+html.js .pillars:not(.is-visible) > *,
+html.js .services-grid:not(.is-visible) > *,
+html.js .testi-cards:not(.is-visible) > *,
+html.js .blog-grid:not(.is-visible) > *,
+html.js .bento-grid:not(.is-visible) > * {
+  opacity: 0;
+}
+
+/* Reveal au scroll : le .is-visible est pose par main.js / IntersectionObserver */
+html.js .pillars.is-visible > *,
+html.js .services-grid.is-visible > *,
+html.js .testi-cards.is-visible > *,
+html.js .blog-grid.is-visible > *,
+html.js .bento-grid.is-visible > * {
   animation: card-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
@@ -2601,14 +2611,27 @@ h3 {
 
 .bento-grid > *:nth-child(7) { animation-delay: 480ms; }
 
-/* Respect prefers-reduced-motion */
+/* Respect prefers-reduced-motion — couvre aussi le reveal gate (.is-visible) */
 @media (prefers-reduced-motion: reduce) {
   .pillars > *,
   .services-grid > *,
   .testi-cards > *,
   .blog-grid > *,
-  .bento-grid > * {
-    animation: none;
+  .bento-grid > *,
+  html.js .pillars.is-visible > *,
+  html.js .services-grid.is-visible > *,
+  html.js .testi-cards.is-visible > *,
+  html.js .blog-grid.is-visible > *,
+  html.js .bento-grid.is-visible > * {
+    animation: none !important;
+  }
+  /* Jamais de contenu invisible : gate opacity retiree en mode reduit */
+  html.js .pillars:not(.is-visible) > *,
+  html.js .services-grid:not(.is-visible) > *,
+  html.js .testi-cards:not(.is-visible) > *,
+  html.js .blog-grid:not(.is-visible) > *,
+  html.js .bento-grid:not(.is-visible) > * {
+    opacity: 1;
   }
 }
 

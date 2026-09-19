@@ -4,14 +4,47 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  document.documentElement.classList.add('js');
   initMobileMenu();
   initFaqAccordion();
   initButtonSwap();
+  initScrollReveal();
 });
 
 /**
  * Mobile Navigation Burger Toggle & Drawer
  */
+/**
+ * Scroll reveal as the grids enter the viewport (see styles.css).
+ * Progressive enhancement: content stays visible without JS.
+ */
+function initScrollReveal() {
+  const grids = document.querySelectorAll(
+    '.pillars, .services-grid, .testi-cards, .blog-grid, .bento-grid'
+  );
+  if (!grids.length) return;
+
+  const reveal = (grid) => grid.classList.add('is-visible');
+
+  if (!('IntersectionObserver' in window)) {
+    grids.forEach(reveal);
+    return;
+  }
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        reveal(entry.target);
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -48px 0px' }
+  );
+
+  grids.forEach((grid) => io.observe(grid));
+}
+
 function initMobileMenu() {
   const burgerBtn = document.getElementById('burger-btn');
   const mobileMenu = document.getElementById('mobile-menu');
