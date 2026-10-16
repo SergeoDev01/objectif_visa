@@ -18,8 +18,10 @@
 <meta name="twitter:image" content="https://objectifvisa.fr/images/favicon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="images/hero/hero-1.jpg" fetchpriority="high" />
 <link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="hero.css" />
 </head>
 <body>
 
@@ -72,37 +74,49 @@
     <div class="mobile-backdrop" id="mobile-backdrop"></div>
   </nav>
 
-  <!-- ============ Section 3 — Hero ============ -->
-  <section class="bg-white">
-    <div class="container">
-      <div class="hero-card">
-        <div class="hero-text">
-          <h1>Votre visa, entre de bonnes mains</h1>
-          <p class="sub">Des juristes experts vous accompagnent à chaque étape de votre projet d'immigration, de la première demande jusqu'à l'obtention de votre titre.</p>
-          <ul class="check-list">
-            <li>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              Équipe professionnelle
-            </li>
-            <li>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              Assistance juridique
-            </li>
-            <li>
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#129ba6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
-              Support client 6 jours sur 7
-            </li>
-          </ul>
-          <div class="hero-actions">
-            <a href="contact.html" class="btn btn-coral">Prendre Rendez Vous</a>
-            <a href="services.html" class="link-arrow on-dark">Découvrir nos services
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-            </a>
-          </div>
+  <!-- ============ Section 3 — Hero plein ecran a slider ============ -->
+  <section class="hero" id="accueil-hero">
+    <div class="hero__bg is-loading" id="hero-bg" role="region" aria-roledescription="carousel" aria-label="Images d illustration du cabinet" aria-live="off"></div>
+    <div class="hero__veil" aria-hidden="true"></div>
+    <div class="hero__inner container">
+      <div class="hero__content">
+        <h1 class="hero__title">Votre visa, entre de bonnes mains</h1>
+        <p class="hero__sub">Des juristes experts vous accompagnent à chaque étape de votre projet d'immigration, de la première demande jusqu'à l'obtention de votre titre.</p>
+        <ul class="check-list hero__assurance">
+          <li>
+            <svg width="24" height="24" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path d="m88 128 24 24 56-56"/></svg>
+            Équipe professionnelle
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path d="m88 128 24 24 56-56"/></svg>
+            Assistance juridique
+          </li>
+          <li>
+            <svg width="24" height="24" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="16" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M128 24a104 104 0 1 0 0 208 104 104 0 0 0 0-208Z"/><path d="m88 128 24 24 56-56"/></svg>
+            Support client 6 jours sur 7
+          </li>
+        </ul>
+        <div class="hero-actions hero__actions">
+          <a href="contact.html" class="btn btn-coral">Prendre Rendez Vous</a>
+          <a href="services.html" class="link-arrow on-dark">Découvrir nos services
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
         </div>
-        <div class="hero-media">
-          <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=900&q=80" alt="Une personne tenant un passeport et un document de voyage, expression confiante" loading="lazy" />
-        </div>
+      </div>
+    </div>
+    <div class="hero__controls" id="hero-controls" hidden>
+      <div class="hero__dots" id="hero-dots"></div>
+      <div class="hero__nav">
+        <button type="button" class="hero__btn" id="hero-prev" aria-label="Slide précédente">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+        </button>
+        <button type="button" class="hero__btn" id="hero-play" aria-label="Mettre en pause le diaporama" aria-pressed="false">
+          <svg class="icon-pause" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>
+          <svg class="icon-play" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="display:none"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button type="button" class="hero__btn" id="hero-next" aria-label="Slide suivante">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+        </button>
       </div>
     </div>
   </section>
@@ -375,6 +389,7 @@
     </div>
   </div>
 
+  <script src="hero.js" defer></script>
   <script src="main.js"></script>
 </body>
 </html>

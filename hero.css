@@ -1,0 +1,475 @@
+/* ==========================================================================
+   Objectif Visa — Hero plein ecran a slider (index.html uniquement)
+   Tokens utilises : couleurs, --font-inter, --text-display / --text-subheading,
+   --spacing-*, --page-max-width, --radius-buttons, --radius-pills.
+   Aucune valeur chromatique ou typo en dur. Variables locales : --hero-*.
+   ========================================================================== */
+
+.hero {
+  --hero-focal-x: 75%;
+  --hero-focal-y: 50%;
+  --hero-slide-ms: 4000ms;
+  --hero-fade-ms: 1000ms;
+
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  padding-top: 0;
+  padding-bottom: 0;
+
+  /* Fond de repli 0 image : degrade charcoal vers abyss, teinte de marque discrète */
+  background:
+    radial-gradient(120% 90% at 85% 10%, rgba(18, 155, 166, 0.16), rgba(18, 155, 166, 0) 55%),
+    linear-gradient(135deg, var(--color-charcoal-ink), var(--color-deep-abyss));
+
+  /* Regle n1 : l ecran moins la hauteur au dessus du hero (nav fixe mesuree en JS) */
+  min-height: calc(100vh - var(--above-hero-h, 68px));
+  min-height: calc(100dvh - var(--above-hero-h, 68px));
+  display: flex;
+  align-items: stretch;
+}
+
+/* ---------- Fond slider ---------- */
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  background: transparent;
+}
+
+/* Skeleton discret pendant le chargement, sans saut de mise en page */
+.hero__bg.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.06) 50%, rgba(255, 255, 255, 0) 60%);
+  animation: hero-skeleton 1.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes hero-skeleton {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--hero-fade-ms) cubic-bezier(0.4, 0, 0.2, 1),
+    visibility 0s linear var(--hero-fade-ms);
+  pointer-events: none;
+  will-change: opacity;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.hero__slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--hero-fade-ms) cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1;
+}
+
+.hero__slide picture,
+.hero__slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.hero__slide img {
+  object-fit: cover;
+  object-position: var(--hero-focal-x) var(--hero-focal-y);
+  /* Repos = fin du zoom : la slide sortante ne saute plus en arriere pendant le fondu.
+     La transition adoucit le retour si on change de slide avant la fin du zoom. */
+  transform: scale(1.05) translateZ(0);
+  transition: transform 0.8s ease;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.hero__slide.is-active img {
+  animation: hero-kenburns var(--hero-slide-ms) linear forwards;
+}
+
+@keyframes hero-kenburns {
+  from { transform: scale(1) translateZ(0); }
+  to { transform: scale(1.05) translateZ(0); }
+}
+
+/* ---------- Voile de lisibilite (charcoal en transparence) ---------- */
+
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(22, 25, 28, 0.55) 0%, rgba(22, 25, 28, 0) 26%),
+    linear-gradient(90deg, rgba(22, 25, 28, 0.88) 0%, rgba(22, 25, 28, 0.78) 38%, rgba(22, 25, 28, 0.45) 62%, rgba(22, 25, 28, 0.15) 85%),
+    linear-gradient(0deg, rgba(22, 25, 28, 0.55) 0%, rgba(22, 25, 28, 0) 34%);
+}
+
+/* ---------- Contenu texte, colonne gauche ---------- */
+
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  padding-top: calc(var(--spacing-48) + env(safe-area-inset-top, 0px));
+  /* Reserve basse : jamais de chevauchement avec les controles */
+  padding-bottom: calc(var(--spacing-96) + env(safe-area-inset-bottom, 0px));
+  padding-left: var(--container-pad-h);
+  padding-right: var(--container-pad-h);
+}
+
+.hero__content {
+  max-width: min(40rem, 56%);
+  color: var(--color-pure-white);
+}
+
+/* Entree douce au premier affichage seulement, decalee entre elements */
+.hero.is-ready .hero__content > * {
+  animation: hero-rise 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero.is-ready .hero__content > *:nth-child(2) { animation-delay: 90ms; }
+.hero.is-ready .hero__content > *:nth-child(3) { animation-delay: 180ms; }
+.hero.is-ready .hero__content > *:nth-child(4) { animation-delay: 270ms; }
+
+@keyframes hero-rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.hero__title {
+  color: var(--color-pure-white);
+  font-family: var(--font-inter);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.35);
+  /* Fluide en largeur ET hauteur, tokens comme maximums */
+  font-size: clamp(2rem, 3vw + 1.6svh, var(--text-display));
+  margin-bottom: var(--spacing-12);
+}
+
+.hero__sub {
+  color: var(--color-pure-white);
+  opacity: 0.95;
+  font-family: var(--font-inter);
+  font-weight: 500;
+  font-size: clamp(1.0625rem, 1vw + 0.9svh, var(--text-subheading));
+  line-height: 1.5;
+  margin-bottom: var(--spacing-24);
+  max-width: 46ch;
+  text-wrap: pretty;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.35);
+}
+
+/* Liste de reassurance : lignes simples, pas de cartes */
+.hero__assurance {
+  margin-bottom: var(--spacing-24);
+  color: var(--color-pure-white);
+  gap: var(--spacing-12);
+}
+
+.hero__assurance li {
+  font-size: clamp(0.9375rem, 0.7vw + 0.8svh, var(--text-body));
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-pure-white);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero__assurance svg {
+  color: var(--color-brand-blue);
+  flex-shrink: 0;
+}
+
+/* Boutons : composants existants reutilises tels quels */
+.hero__actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-16);
+}
+
+/* Variante secondaire contour clair sur fond sombre, memes dimensions que .btn.
+   (.btn-dark-outline existe deja et convient ; ce scope .hero garantit le
+   contraste sur image si theme.css evolue.) */
+.hero .btn-outline-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  font-family: var(--font-inter);
+  font-size: var(--text-body);
+  font-weight: 600;
+  border-radius: var(--radius-buttons);
+  padding: 14px 28px;
+  min-height: 48px;
+  line-height: 1.25;
+  white-space: nowrap;
+  box-sizing: border-box;
+  background: transparent;
+  color: var(--color-pure-white);
+  border: 1.5px solid var(--color-pure-white);
+}
+
+.hero .btn-outline-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ---------- Controles discrets, jamais sur le texte ---------- */
+
+.hero__controls {
+  position: absolute;
+  z-index: 3;
+  right: max(var(--container-pad-h), env(safe-area-inset-right, 0px));
+  bottom: calc(var(--spacing-24) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+}
+
+.hero__controls[hidden] {
+  display: none;
+}
+
+.hero__dots {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.hero__dot {
+  position: relative;
+  width: clamp(1.75rem, 2.4vw, 2.5rem);
+  height: 1.5rem;
+  display: inline-flex;
+  align-items: center;
+  border-radius: var(--radius-pills);
+}
+
+.hero__dot-track {
+  display: block;
+  width: 100%;
+  height: 0.375rem;
+  border-radius: var(--radius-pills);
+  background: rgba(255, 255, 255, 0.32);
+  overflow: hidden;
+}
+
+.hero__dot-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-pills);
+  background: var(--color-pure-white);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+/* Barre de progression sur la slide active */
+.hero__dot.is-active .hero__dot-fill {
+  animation: hero-progress var(--hero-slide-ms) linear forwards;
+}
+
+@keyframes hero-progress {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Pause globale : fige la progression */
+.hero.is-paused .hero__dot-fill {
+  animation-play-state: paused;
+}
+
+.hero__nav {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.hero__btn {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pills);
+  color: var(--color-pure-white);
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: background-color 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__btn:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+.hero__btn:focus-visible,
+.hero__dot:focus-visible {
+  outline: 2px solid var(--color-pure-white);
+  outline-offset: 3px;
+}
+
+/* ---------- Mobile portrait : contenu en bas, boutons pleine largeur ---------- */
+
+@media (max-width: 767px) {
+  .hero {
+    --hero-focal-x: 78%;
+  }
+
+  /* Voile vertical depuis le bas */
+  .hero__veil {
+    background:
+      linear-gradient(180deg, rgba(22, 25, 28, 0.25) 0%, rgba(22, 25, 28, 0) 30%),
+      linear-gradient(0deg, rgba(22, 25, 28, 0.9) 0%, rgba(22, 25, 28, 0.62) 46%, rgba(22, 25, 28, 0.12) 78%);
+  }
+
+  .hero__slide img {
+    object-position: 78% 50%;
+  }
+
+  .hero__inner {
+    align-items: flex-end;
+    padding-top: var(--spacing-32);
+    /* Controles reserves tout en bas, texte juste au dessus */
+    padding-bottom: calc(var(--spacing-64) + var(--spacing-16) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero__content {
+    max-width: 100%;
+  }
+
+  .hero__title {
+    font-size: clamp(1.75rem, 8.5vw + 1svh, 2.5rem);
+  }
+
+  .hero__assurance {
+    display: grid;
+  }
+
+  .hero__actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .hero__actions .btn,
+  .hero__actions .btn-outline-light {
+    width: 100%;
+  }
+
+  .hero__actions .link-arrow {
+    justify-content: center;
+  }
+
+  .hero__controls {
+    right: var(--spacing-16);
+    left: var(--spacing-16);
+    justify-content: flex-end;
+  }
+}
+
+/* ---------- Hauteurs courtes : reduire, puis masquer liste, puis paragraphe ----------
+   Apres le bloc mobile : a specificite egale, la hauteur gagne sur la largeur. */
+
+@media (max-height: 640px) {
+  .hero .hero__title {
+    font-size: clamp(1.625rem, 5vw + 2.4svh, 2.5rem);
+    margin-bottom: var(--spacing-12);
+  }
+
+  .hero .hero__inner {
+    padding-top: var(--spacing-24);
+    padding-bottom: calc(var(--spacing-64) + var(--spacing-16) + env(safe-area-inset-bottom, 0px));
+  }
+
+  .hero .hero__sub {
+    font-size: clamp(0.875rem, 2.4vw + 0.8svh, 1rem);
+    margin-bottom: var(--spacing-16);
+  }
+
+  /* D abord la liste de reassurance */
+  .hero .hero__assurance {
+    display: none;
+  }
+
+  .hero .hero__actions {
+    gap: var(--spacing-8);
+  }
+
+  .hero .hero__actions .btn,
+  .hero .hero__actions .btn-outline-light {
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 480px) {
+  .hero .hero__title {
+    font-size: clamp(1.375rem, 2vw + 2.2svh, 2rem);
+    margin-bottom: var(--spacing-12);
+  }
+
+  /* Ensuite le paragraphe ; titre et 2 boutons ne disparaissent jamais */
+  .hero .hero__sub {
+    display: none;
+  }
+
+  .hero .hero__inner {
+    align-items: center;
+    padding-top: var(--spacing-16);
+    padding-bottom: calc(var(--spacing-64) + env(safe-area-inset-bottom, 0px));
+  }
+
+  /* Boutons en ligne pour tenir en hauteur */
+  .hero .hero__actions {
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .hero .hero__actions .btn,
+  .hero .hero__actions .btn-outline-light {
+    width: auto;
+    min-height: 44px;
+    padding: 12px 20px;
+  }
+}
+
+/* ---------- Mouvements reduits : fondu simple, pas d autoplay ni de zoom ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__slide {
+    transition-duration: 0.01ms;
+  }
+
+  .hero__slide img {
+    animation: none;
+    transform: none;
+  }
+
+  .hero.is-ready .hero__content > * {
+    animation: none;
+  }
+
+  .hero__bg.is-loading::after {
+    animation: none;
+    display: none;
+  }
+
+  .hero__dot.is-active .hero__dot-fill {
+    animation: none;
+    transform: scaleX(1);
+  }
+}

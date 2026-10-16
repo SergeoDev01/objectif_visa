@@ -1,0 +1,5 @@
+Hero ObjectifVisa : deposez hero-1.webp puis hero-2.webp jusqu a hero-8.webp ici.
+Formats acceptes : webp puis jpg png jpeg avif. Ratio 16:9 desktop, 4:5 mobile.
+Version mobile optionnelle : hero-1-mobile.webp, meme regles, sinon desktop reuse.
+Apercu sans fichiers : ouvrez index.html avec ?placeholder=1 dans l adresse.
+Redéployez apres depot, aucun code a modifier.
