@@ -9,7 +9,35 @@ document.addEventListener('DOMContentLoaded', () => {
   initFaqAccordion();
   initButtonSwap();
   initScrollReveal();
+  initYouTubeFacade();
 });
+
+/**
+ * Apercus video YouTube : le lecteur n'est injecte qu'au clic.
+ * Evite de charger les iframes au chargement de page et permet
+ * a la miniature de s'afficher meme en test local (file://).
+ */
+function initYouTubeFacade() {
+  const facades = document.querySelectorAll('.video-facade');
+  if (!facades.length) return;
+
+  facades.forEach((facade) => {
+    facade.addEventListener('click', () => {
+      const id = facade.getAttribute('data-youtube-id');
+      if (!id) return;
+
+      const iframe = document.createElement('iframe');
+      iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      iframe.title = facade.getAttribute('aria-label') || 'Témoignage vidéo';
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+      iframe.setAttribute('allowfullscreen', '');
+      iframe.setAttribute('loading', 'lazy');
+
+      const container = facade.parentElement || facade;
+      container.replaceChild(iframe, facade);
+    }, { once: true });
+  });
+}
 
 /**
  * Mobile Navigation Burger Toggle & Drawer
