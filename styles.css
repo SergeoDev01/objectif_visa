@@ -2824,3 +2824,100 @@ html.js .bento-grid.is-visible > * {
   background: var(--color-fog-white);
   border-radius: var(--radius-hero);
 }
+
+/* ==========================================================================
+   About page — Fondateurs, Équipe & Clients (a-propos.html)
+   ========================================================================== */
+
+/* Cartes fondateurs / équipe : colonne flex pour des hauteurs égales */
+.founder-card,
+.regional-card {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Bio éditoriale : alignée à gauche pour une lecture confortable
+   (le nom et le rôle restent centrés avec le portrait) */
+.founder-card .bio,
+.regional-card .bio {
+  text-align: left;
+}
+
+/* Les réseaux sociaux sont collés au bas de la carte */
+.founder-card .social-row,
+.regional-card .social-row {
+  margin-top: auto;
+  padding-top: var(--spacing-20);
+}
+
+.regional-card .contact {
+  color: var(--color-charcoal-ink);
+  font-weight: 600;
+  font-size: var(--text-body-sm);
+  margin-top: var(--spacing-16);
+}
+
+.regional-card .btn {
+  margin-top: var(--spacing-20);
+  align-self: center;
+}
+
+/* Bandeau logos clients */
+.clients-strip {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: var(--spacing-32);
+  align-items: center;
+  justify-items: center;
+}
+
+.clients-strip img {
+  max-height: 56px;
+  max-width: 100%;
+  width: auto;
+  object-fit: contain;
+  filter: grayscale(1);
+  opacity: 0.65;
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+
+.clients-strip img:hover {
+  filter: none;
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Réseaux sociaux du footer (fond sombre) */
+.footer-social {
+  display: flex;
+  gap: var(--spacing-16);
+  margin-top: var(--spacing-16);
+}
+
+.footer-social a {
+  color: var(--color-mist-gray);
+  display: inline-flex;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: var(--color-brand-blue);
+  transform: translateY(-2px);
+}
+
+.footer-social svg {
+  fill: currentColor;
+}
+
+@media (max-width: 768px) {
+  .clients-strip {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-20);
+  }
+}
+
+@media (max-width: 480px) {
+  .clients-strip {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
