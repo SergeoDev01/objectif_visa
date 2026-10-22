@@ -1372,6 +1372,11 @@ h3 {
   outline: 1px solid oklch(0 0 0 / 0.08);
 }
 
+.service-detail .check-list,
+.detail-layout .check-list {
+  margin-bottom: var(--spacing-24);
+}
+
 /* Service Detail Layout (for subpages) */
 .back-link {
   display: inline-flex;
@@ -1497,7 +1502,7 @@ h3 {
 .steps,
 .process-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: var(--spacing-40);
 }
 

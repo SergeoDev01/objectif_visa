@@ -1,0 +1,12 @@
+# Forcer LF : le projet est du web statique, et CRLF casse les editions multi-lignes
+* text=auto eol=lf
+
+# Images et binaires
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
