@@ -1,0 +1,8 @@
+# Outillage agent (hors livrable site)
+.agents/
+.gstack/
+skills-lock.json
+
+# Systeme
+.DS_Store
+Thumbs.db
